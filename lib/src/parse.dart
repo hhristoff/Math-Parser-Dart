@@ -88,6 +88,13 @@ extension MathNodeExpression on MathExpression {
 
     variableNamesList.sort((a, b) => b.length.compareTo(a.length));
 
+    String variableNamesRegexPart =
+        variableNamesList.map((e) => RegExp.escape(e)).join('|');
+
+    if (variableNamesRegexPart.isNotEmpty) {
+      variableNamesRegexPart += '|';
+    }
+
     return _parseMathString(
       expression,
       isMinusNegativeFunction: isMinusNegativeFunction,
@@ -95,10 +102,7 @@ extension MathNodeExpression on MathExpression {
       variableNames: variableNames,
       customFunctions: customFunctions,
       regexp: RegExp(
-        '(' +
-            variableNamesList.map((e) => RegExp.escape(e)).join('|') +
-            (variableNamesList.isNotEmpty ? '|' : '') +
-            r'(\d+(\.\d+)?)|\+|-|\^|/|\*)',
+        r'(' + variableNamesRegexPart + r'(\d+(\.\d+)?)|\+|-|\^|/|\*)',
       ),
     );
   }
@@ -246,7 +250,7 @@ extension MathNodeExpression on MathExpression {
   /// Use `hideBuiltIns` if you want to remove built-in variables like `e` and
   /// `pi` from result. Can be useful if you are going to prompt user to enter the
   /// values.
-  static _MathExpressionDefinable getPotentialDefinable(
+  static MathExpressionDefinable getPotentialDefinable(
     /// The expression to convert
     String expression, {
     /// Hide built-in variables like `e` and `pi`
@@ -263,7 +267,7 @@ extension MathNodeExpression on MathExpression {
           !funcs.contains(element);
     }).toSet();
 
-    return _MathExpressionDefinable(vars, funcs);
+    return MathExpressionDefinable._(vars, funcs);
   }
 
   /// Detect potential function names
@@ -284,7 +288,7 @@ extension MathNodeExpression on MathExpression {
     String expression, {
     bool hideBuiltIns = false,
   }) {
-    return RegExp('(' + _variableNameBaseRegExp + ')([(])')
+    return RegExp('($_variableNameBaseRegExp)([(])')
         .allMatches(expression)
         .map((element) => element.group(1)!)
         .where((element) {
@@ -1009,14 +1013,14 @@ class _MathExpressionPartParsed implements _MathExpressionPart {
 
 /// Data type that describes what variables and functions can be defined in
 /// an unparsed string
-class _MathExpressionDefinable {
+class MathExpressionDefinable {
   /// Variables that can be defined
   final Set<String> variables;
 
   /// Functions that can be defined, identified by brackets that follow them
   final Set<String> functions;
 
-  const _MathExpressionDefinable(
+  const MathExpressionDefinable._(
     this.variables,
     this.functions,
   );

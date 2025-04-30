@@ -9,7 +9,6 @@ linter:
     always_declare_return_types: true
     prefer_single_quotes: true
     unawaited_futures: true
-    package_api_docs: true
     public_member_api_docs: true
     type_annotate_public_apis: true
     prefer_final_in_for_each: true

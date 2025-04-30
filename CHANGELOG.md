@@ -1,3 +1,7 @@
+# 1.5.2
+
+-   Added `MathComparison.evaluate()` - by jersonal-com
+
 # 1.5.1
 
 -   Increased upper SDK constraint to declare support for Dart 3
