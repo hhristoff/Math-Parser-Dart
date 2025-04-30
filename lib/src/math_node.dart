@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'math_errors.dart';
+import 'package:math_parser/src/math_errors.dart';
 
 /// Variables dictionary
 ///
@@ -775,13 +775,14 @@ abstract class MathComparison extends MathExpression {
     };
   }
 
-  /// Evaluates the comparison and returns 1 if it is true
-  /// and 0 otherwise
-  num? evaluate(
-      MathVariableValues values, {
-        MathCustomFunctionsImplemented customFunctions =
+  /// Evaluates the comparison and returns true or false
+  ///
+  /// Returns null if the comparison is not possible
+  bool? evaluate(
+    MathVariableValues values, {
+    MathCustomFunctionsImplemented customFunctions =
         const MathCustomFunctionsImplemented({}),
-      });
+  });
 }
 
 /// Equation
@@ -809,11 +810,11 @@ class MathComparisonEquation extends MathComparison {
   }
 
   @override
-  num? evaluate(
-      MathVariableValues values, {
-        MathCustomFunctionsImplemented customFunctions =
+  bool? evaluate(
+    MathVariableValues values, {
+    MathCustomFunctionsImplemented customFunctions =
         const MathCustomFunctionsImplemented({}),
-      }) {
+  }) {
     final leftResult = left.calc(
       values,
       customFunctions: customFunctions,
@@ -823,11 +824,10 @@ class MathComparisonEquation extends MathComparison {
       customFunctions: customFunctions,
     );
 
-    if (leftResult == rightResult) return 1;
+    if (leftResult == rightResult) return true;
 
-    return 0;
+    return false;
   }
-
 
   @override
   String toString() {
@@ -845,10 +845,10 @@ class MathComparisonEquation extends MathComparison {
 class MathComparisonGreater extends MathComparison {
   @override
   num? calc(
-      MathVariableValues values, {
-        MathCustomFunctionsImplemented customFunctions =
+    MathVariableValues values, {
+    MathCustomFunctionsImplemented customFunctions =
         const MathCustomFunctionsImplemented({}),
-      }) {
+  }) {
     final leftResult = left.calc(
       values,
       customFunctions: customFunctions,
@@ -866,11 +866,11 @@ class MathComparisonGreater extends MathComparison {
   }
 
   @override
-  num? evaluate(
-      MathVariableValues values, {
-        MathCustomFunctionsImplemented customFunctions =
+  bool? evaluate(
+    MathVariableValues values, {
+    MathCustomFunctionsImplemented customFunctions =
         const MathCustomFunctionsImplemented({}),
-      }) {
+  }) {
     final leftResult = left.calc(
       values,
       customFunctions: customFunctions,
@@ -883,8 +883,9 @@ class MathComparisonGreater extends MathComparison {
     );
     if (rightResult == null) return null;
 
-    if (leftResult > rightResult) return 1;
-    return 0;
+    if (leftResult > rightResult) return true;
+
+    return false;
   }
 
   @override
@@ -924,11 +925,11 @@ class MathComparisonGreaterOrEquals extends MathComparison {
   }
 
   @override
-  num? evaluate(
-      MathVariableValues values, {
-        MathCustomFunctionsImplemented customFunctions =
+  bool? evaluate(
+    MathVariableValues values, {
+    MathCustomFunctionsImplemented customFunctions =
         const MathCustomFunctionsImplemented({}),
-      }) {
+  }) {
     final leftResult = left.calc(
       values,
       customFunctions: customFunctions,
@@ -941,8 +942,9 @@ class MathComparisonGreaterOrEquals extends MathComparison {
     );
     if (rightResult == null) return null;
 
-    if (leftResult >= rightResult) return 1;
-    return 0;
+    if (leftResult >= rightResult) return true;
+
+    return false;
   }
 
   @override
@@ -961,10 +963,10 @@ class MathComparisonGreaterOrEquals extends MathComparison {
 class MathComparisonLess extends MathComparison {
   @override
   num? calc(
-      MathVariableValues values, {
-        MathCustomFunctionsImplemented customFunctions =
+    MathVariableValues values, {
+    MathCustomFunctionsImplemented customFunctions =
         const MathCustomFunctionsImplemented({}),
-      }) {
+  }) {
     final leftResult = left.calc(
       values,
       customFunctions: customFunctions,
@@ -982,11 +984,11 @@ class MathComparisonLess extends MathComparison {
   }
 
   @override
-  num? evaluate(
-      MathVariableValues values, {
-        MathCustomFunctionsImplemented customFunctions =
+  bool? evaluate(
+    MathVariableValues values, {
+    MathCustomFunctionsImplemented customFunctions =
         const MathCustomFunctionsImplemented({}),
-      }) {
+  }) {
     final leftResult = left.calc(
       values,
       customFunctions: customFunctions,
@@ -999,8 +1001,9 @@ class MathComparisonLess extends MathComparison {
     );
     if (rightResult == null) return null;
 
-    if (leftResult < rightResult) return 1;
-    return 0;
+    if (leftResult < rightResult) return true;
+
+    return false;
   }
 
   @override
@@ -1019,10 +1022,10 @@ class MathComparisonLess extends MathComparison {
 class MathComparisonLessOrEquals extends MathComparison {
   @override
   num? calc(
-      MathVariableValues values, {
-        MathCustomFunctionsImplemented customFunctions =
+    MathVariableValues values, {
+    MathCustomFunctionsImplemented customFunctions =
         const MathCustomFunctionsImplemented({}),
-      }) {
+  }) {
     final leftResult = left.calc(
       values,
       customFunctions: customFunctions,
@@ -1040,11 +1043,11 @@ class MathComparisonLessOrEquals extends MathComparison {
   }
 
   @override
-  num? evaluate(
-      MathVariableValues values, {
-        MathCustomFunctionsImplemented customFunctions =
+  bool? evaluate(
+    MathVariableValues values, {
+    MathCustomFunctionsImplemented customFunctions =
         const MathCustomFunctionsImplemented({}),
-      }) {
+  }) {
     final leftResult = left.calc(
       values,
       customFunctions: customFunctions,
@@ -1057,8 +1060,9 @@ class MathComparisonLessOrEquals extends MathComparison {
     );
     if (rightResult == null) return null;
 
-    if (leftResult <= rightResult) return 1;
-    return 0;
+    if (leftResult <= rightResult) return true;
+
+    return false;
   }
 
   @override
