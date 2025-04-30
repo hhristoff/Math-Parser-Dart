@@ -144,7 +144,9 @@ extension MathNodeExpression on MathExpression {
     for (var i = 0; i < nodes.length; i++) {
       final token = nodes[i];
       if (token is! _MathExpressionPartString ||
-          !RegExp(r'^(<=|>=|=|<|>)$').hasMatch(token.str)) continue;
+          !RegExp(r'^(<=|>=|=|<|>)$').hasMatch(token.str)) {
+        continue;
+      }
 
       if (i == 0 || i == nodes.length - 1) {
         throw MissingOperatorOperandException(token.str);

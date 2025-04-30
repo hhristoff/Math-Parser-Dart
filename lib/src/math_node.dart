@@ -265,7 +265,7 @@ class MathFunctionFreeform extends MathNode {
   @override
   Set<String> getUsedVariables() {
     return {
-      for (var l in arguments.map<Set<String>>((e) => e.getUsedVariables()))
+      for (final l in arguments.map<Set<String>>((e) => e.getUsedVariables()))
         ...l
     };
   }
@@ -274,7 +274,7 @@ class MathFunctionFreeform extends MathNode {
   Set<MathDefinitionFunctionFreeform> getUsedFreeformFunctions() {
     return {
       definition,
-      for (var l in arguments.map<Set<MathDefinitionFunctionFreeform>>(
+      for (final l in arguments.map<Set<MathDefinitionFunctionFreeform>>(
           (e) => e.getUsedFreeformFunctions()))
         ...l
     };
