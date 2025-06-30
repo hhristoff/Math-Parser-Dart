@@ -484,7 +484,6 @@ MathNode _parseMathString(
     } else {
       if (item.contents == '') continue;
       final sp = item.contents.split(r',\s*(?![^()]*\))');
-      final sp = item.contents.split(regex);
       final List<MathNode> n = [];
 
       for (final r in sp) {
