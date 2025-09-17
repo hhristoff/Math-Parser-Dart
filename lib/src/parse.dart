@@ -483,7 +483,7 @@ MathNode _parseMathString(
       if (r.isNotEmpty) nodes.add(_MathNodePartString(r));
     } else {
       if (item.contents == '') continue;
-      final sp = item.contents.split(r',\s*(?![^()]*\))');
+      final sp = item.contents.split(RegExp(r',\s*(?![^()]*\))'));
       final List<MathNode> n = [];
 
       for (final r in sp) {
